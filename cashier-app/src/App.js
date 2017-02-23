@@ -20,7 +20,6 @@ var items = [
       {category: "Bread", sku: 4023, desc: "Buns (Hamburger)", price: 3.00}
     ];
 
-var test = {bread: 2.60};
 
 class App extends Component {
   constructor(){
@@ -28,12 +27,42 @@ class App extends Component {
     this.state = {
       forSale: items
     }
+
+    this.addToReceipt = this.addToReceipt.bind(this)
   }
+
+  test(i){
+    console.log("hello i=", i)
+  }
+
+  addToReceipt(i){
+    console.log("i=", i)
+    var newitems = this.state.forSale.slice()
+    newitems.pop()
+    // this.setState({
+    //   forSale: this.remove(this.state.forSale, i)
+    // })
+    this.setState({
+      forSale: newitems
+    })
+
+    console.log(this.state)
+    console.log(newitems.length)
+    this.render()
+  }
+
+  remove(arr, i){
+    return arr.filter((el, index)=>{
+      return index !== i
+    })
+  }
+
   render() {
     return (
       <div>
-        <h1 className="header">the FUN register!<img className="App-logo" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/apple-circle-green-512.png" /></h1>
-        <ForSale items={this.state.forSale} />
+        <div>{this.state.forSale.length}</div>
+        <h1 className="header">the FUN register!<img className="App-logo" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/apple-circle-green-512.png" alt="logo"/></h1>
+        <ForSale items={this.state.forSale} addToReceipt={this.addToReceipt} testerFunction={this.test} />
         <Receipt />
       </div>
     );

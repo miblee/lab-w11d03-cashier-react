@@ -5,9 +5,9 @@ import './App.css';
 class Receipt extends Component {
   constructor() {
     super();
-    // this.state = {
-    //   avail_produce: items
-    // }
+    this.state = {
+      avail_produce: "hello"
+    }
   }
   render() {
     return (
