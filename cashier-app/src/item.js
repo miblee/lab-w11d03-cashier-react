@@ -3,16 +3,21 @@ import './App.css';
 
 
 class Item extends Component {
-  constructor(item){
+  constructor(props){
     super();
-    console.log(item)
+    console.log(props)
+    this.state = {
+      item: props.item
+    }
   }
+
+
 
   render(){
     return(
-      <div>Hi from item.js
-
-      </div>
+      <li>
+        {this.state.item.desc} ... ${this.state.item.price} <button>➕</button>
+      </li>
     )
   }
 }

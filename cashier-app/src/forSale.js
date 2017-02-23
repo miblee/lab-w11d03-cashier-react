@@ -11,10 +11,16 @@ class ForSale extends Component {
     }
   }
   render(){
+    const renderedItems = this.state.items.map( (item, i) =>
+      <Item item={item} />
+    )
+    console.log(renderedItems)
     return(
       <div className="col">
         <h3 className="title">for sale</h3>
-        <Item item={this.state.items[0]} />
+        <ul>
+          {renderedItems}
+        </ul>
       </div>
     );
   }
