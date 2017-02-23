@@ -25,10 +25,13 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      forSale: items
+      forSale: items,
+      receipts: []
     }
 
     this.addToReceipt = this.addToReceipt.bind(this)
+    this.removeFromReceipt = this.removeFromReceipt.bind(this)
+
   }
 
   test(i){
@@ -37,18 +40,22 @@ class App extends Component {
 
   addToReceipt(i){
     console.log("i=", i)
-    var newitems = this.state.forSale.slice()
-    newitems.pop()
-    // this.setState({
-    //   forSale: this.remove(this.state.forSale, i)
-    // })
-    this.setState({
-      forSale: newitems
-    })
 
+    this.setState({
+      forSale: this.remove(this.state.forSale, i),
+      receipts: this.state.receipts.concat(this.get(this.state.forSale, i))
+    })
     console.log(this.state)
-    console.log(newitems.length)
-    this.render()
+  }
+
+  removeFromReceipt(i){
+    console.log("i=", i)
+
+    this.setState({
+      forSale: this.state.forSale.concat(this.get(this.state.receipts, i)),
+      receipts: this.remove(this.state.receipts, i)
+    })
+    console.log(this.state)
   }
 
   remove(arr, i){
@@ -57,13 +64,19 @@ class App extends Component {
     })
   }
 
+  get(arr, i){
+    return arr.filter((el, index)=>{
+      return index === i
+    })
+  }
+
   render() {
     return (
       <div>
         <div>{this.state.forSale.length}</div>
         <h1 className="header">the FUN register!<img className="App-logo" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2/128/apple-circle-green-512.png" alt="logo"/></h1>
-        <ForSale items={this.state.forSale} addToReceipt={this.addToReceipt} testerFunction={this.test} />
-        <Receipt />
+        <ForSale title="for sale" items={this.state.forSale} addToReceipt={this.addToReceipt} testerFunction={this.test} />
+        <ForSale title="receipt" items={this.state.receipts} addToReceipt={this.removeFromReceipt} testerFunction={this.test} />
       </div>
     );
   }

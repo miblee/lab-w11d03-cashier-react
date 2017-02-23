@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import Item from './item.js'
 
@@ -38,7 +38,7 @@ const ForSale = (props) => {
     )
   return(
     <div className="col">
-      <h3 className="title">for sale</h3>
+      <h3 className="title">{props.title}</h3>
       <ul>
         {renderedItems}
       </ul>
